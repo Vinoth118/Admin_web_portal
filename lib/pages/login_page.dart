@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                                             username, password));
                                   }
                                 },
-                                child: Text('Login',style: TextStyle(color: Colors.white),),
+                                child: Text('Login',style: TextStyle(color: Colors.white)),
                               ),
                             ),
                             SizedBox(height: 20),

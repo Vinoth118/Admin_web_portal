@@ -1,3 +1,4 @@
+import 'package:admin_web_portal/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 typedef Function RowClickHandler(int rowIndex);
@@ -7,21 +8,19 @@ class WidgetTableWidget extends StatelessWidget {
     Key key,
     this.columns,
     this.tableData,
+    this.rowClickHandler,
   }) : super(key: key);
 
   final List<String> columns;
   final List<List<Widget>> tableData;
+  final RowClickHandler rowClickHandler;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      //color: Colors.white,
-      child: DataTable(
+    return DataTable(
         columns: buildColumns(columns),
         rows: buildTableRows(tableData),
-      ),
-    );
+      );
   }
 
   List<DataRow> buildTableRows(List<List<Widget>> rows) {
@@ -32,6 +31,9 @@ class WidgetTableWidget extends StatelessWidget {
         e,
         ) =>
         DataRow(
+          onSelectChanged: (value) {
+            rowClickHandler(e.key);
+          },
           cells: e.value
               .map((i) => DataCell(
             i
@@ -51,9 +53,10 @@ class WidgetTableWidget extends StatelessWidget {
             label: Text(
               e,
               style: TextStyle(
-                  color: Colors.black,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold),
+                color: bodyColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+              ),
             ),
           ),
     )

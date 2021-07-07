@@ -136,9 +136,11 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: bgColor,
             textTheme: GoogleFonts.poppinsTextTheme(
                 Theme.of(context).textTheme.copyWith(
-                      headline1: TextStyle(fontSize: 24, color: bodyColor),
-                      headline2: TextStyle(fontSize: 22, color: bodyColor),
-                      headline3: TextStyle(fontSize: 20, color: selectedColor),
+                      headline1: TextStyle(fontSize: 24, color: bodyColor, fontWeight: FontWeight.w500),
+                      headline2: TextStyle(fontSize: 22, color: bodyColor, fontWeight: FontWeight.w500),
+                      headline3: TextStyle(fontSize: 20, color: selectedColor, fontWeight: FontWeight.w500),
+                      headline4: TextStyle(fontSize: 17, color: bodyColor, fontWeight: FontWeight.w500),
+                      headline5: TextStyle(fontSize: 12, color: bodyColor, fontWeight: FontWeight.w500),
                     )).apply(
               bodyColor: bodyColor,
             ),

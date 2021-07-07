@@ -1,7 +1,8 @@
 import 'package:admin_web_portal/bloc/admin/admin_bloc.dart';
 import 'package:admin_web_portal/bloc/admin/admin_state.dart';
-import 'package:admin_web_portal/components/search_bar.dart';
+import 'package:admin_web_portal/components/content_header.dart';
 import 'package:admin_web_portal/components/table.dart';
+import 'package:admin_web_portal/components/widget_table.dart';
 import 'package:admin_web_portal/router/routes.dart';
 import 'package:admin_web_portal/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -20,39 +21,70 @@ class AdminPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Admins',style: Theme.of(context).textTheme.headline1,),
-                ElevatedButton(onPressed: (){
-                  Navigator.of(context).pushNamed(Routes.NEW_ADMIN);
-                }, child: Text('+ Add Admin',style: TextStyle(color: Colors.white),),)
+                Text(
+                  'Admins',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(Routes.NEW_ADMIN);
+                  },
+                  child: Text(
+                    '+ Add Admin',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
               ],
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Card(
               color: secondaryColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)),side: BorderSide(width: 1,color: Colors.grey.shade400)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  side: BorderSide(width: 1, color: Colors.grey.shade400)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20,),
-                      XSearchBar(),
-                    ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                  XContentHeader(
+                    filterAndSort: true,
+                    searchHintText: "Search Admin",
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   BlocBuilder<AdminBloc, AdminState>(builder: (context, state) {
                     if (state is AdminLoadSuccess) {
-                      final tableRow =
-                      state.admin.map((e) => [e.name, e.email, e.phone,e.status, e.createdAt]).toList();
+                      final tableRow = state.admin
+                          .map((e) => [
+                                Text(e.name),
+                                Text(e.email),
+                                Text(e.phone),
+                                Container(
+                                  padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: e.status == 'ENABLED'? Color(0xFFC3FFDB) : Colors.red,
+                                        borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text('${e.status.toUpperCase().substring(0,1)}${e.status.toLowerCase().substring(1)}')),
+                                    Text(e.createdAt)
+                              ])
+                          .toList();
                       //print(tableRow);
                       return Container(
                         width: double.infinity,
-                        child: TableWidget(
-                          columns: ['Account Name', 'Email', 'Phone','Status', 'Created At'],
+                        child: WidgetTableWidget(
+                          columns: [
+                            'Account Name',
+                            'Email',
+                            'Phone',
+                            'Status',
+                            'Created At'
+                          ],
                           tableData: tableRow,
                         ),
                       );

@@ -1,3 +1,4 @@
+import 'package:admin_web_portal/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 typedef Function RowClickHandler(int rowIndex);
@@ -16,13 +17,9 @@ class TableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      color: Colors.white,
-      child: DataTable(
-        columns: buildColumns(columns),
-        rows: buildTableRows(tableData),
-      ),
+    return DataTable(
+      columns: buildColumns(columns),
+      rows: buildTableRows(tableData),
     );
   }
 
@@ -42,7 +39,8 @@ class TableWidget extends StatelessWidget {
                         Text(
                           i,
                           style: TextStyle(
-                            color: Colors.black,
+                            color: bodyColor,
+                            fontSize: 14,
                           ),
                         ),
                       ))
@@ -61,9 +59,10 @@ class TableWidget extends StatelessWidget {
             label: Text(
               e,
               style: TextStyle(
-                  color: Colors.black,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold),
+                color: bodyColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+              ),
             ),
           ),
         )

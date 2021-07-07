@@ -11,6 +11,7 @@ class Admin extends Equatable {
   String createdAt;
   String updatedAt;
   int iV;
+  String password;
 
   Admin(
       {this.status,
@@ -21,7 +22,8 @@ class Admin extends Equatable {
       this.phone,
       this.createdAt,
       this.updatedAt,
-      this.iV});
+      this.iV,
+      this.password});
 
   Admin.defaultInstance() {
     status = '';
@@ -33,6 +35,7 @@ class Admin extends Equatable {
     createdAt = '';
     updatedAt = '';
     iV = 0;
+    password = '';
   }
 
   Admin.fromJson(Map<String, dynamic> json) {
@@ -45,6 +48,7 @@ class Admin extends Equatable {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
+    password = json['password'];
   }
 
   Map<String, dynamic> toJson() {
@@ -60,6 +64,7 @@ class Admin extends Equatable {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
+    data['password'] = this.password;
     return data;
   }
 
@@ -72,7 +77,8 @@ class Admin extends Equatable {
           String phone,
           String createdAt,
           String updatedAt,
-          int iV}) =>
+          int iV,
+          String password}) =>
       Admin(
           status: status ?? this.status,
           sId: sId ?? this.sId,
@@ -82,29 +88,10 @@ class Admin extends Equatable {
           phone: phone ?? this.phone,
           createdAt: createdAt ?? this.createdAt,
           updatedAt: updatedAt ?? this.updatedAt,
-          iV: iV ?? this.iV);
+          iV: iV ?? this.iV,
+          password: password ?? this.password,
+      );
 
   @override
-  List<Object> get props => [status, sId, name, email, role, phone, createdAt, updatedAt, iV];
+  List<Object> get props => [status, sId, name, email, role, phone, createdAt, updatedAt, iV, password];
 }
-
-/*class Roles {
-  String sId;
-  String name;
-
-  Roles({this.sId, this.name});
-
-  Roles.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['name'] = this.name;
-    return data;
-  }
-
-  Roles copyWith({String name, String sId}) => Roles(name: name ?? this.name, sId: sId ?? this.sId);
-}*/

@@ -10,7 +10,6 @@ class RolesRepository implements RolesRepositoryI {
 
   Future<List<Role>> getAllRoles() async {
     try {
-      //return [dummyRole];
       //final response = await this.client.get('auth/role');
       final response = {
         "success": true,
