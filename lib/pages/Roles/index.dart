@@ -1,5 +1,5 @@
-import 'package:admin_web_portal/bloc/Roles/roles_bloc.dart';
-import 'package:admin_web_portal/bloc/Roles/roles_state.dart';
+import 'package:admin_web_portal/bloc/roles/roles_bloc.dart';
+import 'package:admin_web_portal/bloc/roles/roles_state.dart';
 import 'package:admin_web_portal/components/content_header.dart';
 import 'package:admin_web_portal/components/widget_table.dart';
 import 'package:admin_web_portal/router/routes.dart';
@@ -81,7 +81,6 @@ class RolesPage extends StatelessWidget {
                                 Text(e.updatedAt)
                               ])
                           .toList();
-                      print(tableRow);
                       return Container(
                         width: double.infinity,
                         child: WidgetTableWidget(
@@ -96,7 +95,15 @@ class RolesPage extends StatelessWidget {
                         ),
                       );
                     } else if (state is RolesLoadInProgress) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: Column(
+                        children: [
+                          SizedBox(height: 50,),
+                          CircularProgressIndicator(
+                            color: buttonColor,
+                          ),
+                          SizedBox(height: 50,)
+                        ],
+                      ));
                     } else if (state is RolesLoadFailure) {
                       return Text('Something went wrong');
                     } else {

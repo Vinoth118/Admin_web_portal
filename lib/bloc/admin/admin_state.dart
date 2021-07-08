@@ -1,4 +1,4 @@
-import 'package:admin_web_portal/models/admin.dart';
+import 'package:admin_web_portal/models/admin/admin.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class AdminState extends Equatable {}

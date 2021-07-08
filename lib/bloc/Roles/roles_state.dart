@@ -1,5 +1,5 @@
 
-import 'package:admin_web_portal/models/role.dart';
+import 'package:admin_web_portal/models/role/role.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class RolesState extends Equatable {}

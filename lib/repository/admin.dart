@@ -1,19 +1,23 @@
-import 'package:admin_web_portal/models/admin.dart';
+import 'package:admin_web_portal/models/admin/admin.dart';
+import 'package:admin_web_portal/models/admin/create_admin.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class AdminRepositoryI {
   Future<List<Admin>> getAllAdmin();
-  Future<bool> createAdmin(Admin admin);
+
+  Future<bool> createAdmin(CreateAdmin admin);
 }
+
 class AdminRepository implements AdminRepositoryI {
   final Dio client;
+
   AdminRepository(this.client);
 
   Future<List<Admin>> getAllAdmin() async {
     try {
-      //final response = await this.client.get('auth/admin');
-      final response = {
+      final response = await this.client.get('/auth/admin');
+      /*final response = {
         "success": true,
         "data": [
           {
@@ -31,28 +35,31 @@ class AdminRepository implements AdminRepositoryI {
             "__v": 0
           }
         ]
-      };
-      if (response != null && response['success'] == true) {
-        return (response['data'] as List)
+      };*/
+      if (response?.data != null && response?.data['success'] == true) {
+        return (response?.data['data'] as List)
             .map((e) => Admin.fromJson(e))
             .toList();
       } else {
         return null;
       }
     } catch (e) {}
-
   }
 
-  Future<bool> createAdmin(Admin admin) async {
+  Future<bool> createAdmin(CreateAdmin admin) async {
     try {
       final response =
-      await this.client.post('auth/admin', data: admin.toJson());
+          await this.client.post('/auth/admin', data: admin.toJson());
       if (response?.data != null && response?.data['success'] == true) {
+        print("Admin Created");
         return response?.data['success'];
       } else if (response?.data != null && response?.data['success'] == false) {
-        final message = (response?.data['message']);
-        if (message != null) {
-          Fluttertoast.showToast(msg: message);
+        if (response?.data['statusCode'] != null) {
+          final String msg =
+              response?.data['statusCode'] == "RECORD_ALREADY_EXISTS"
+                  ? "Someone Already Registered with your Email"
+                  : response?.data['statusCode'];
+          Fluttertoast.showToast(msg: msg);
         }
       }
     } catch (e) {}

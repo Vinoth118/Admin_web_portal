@@ -1,4 +1,5 @@
-import 'package:admin_web_portal/models/admin.dart';
+import 'package:admin_web_portal/models/admin/admin.dart';
+import 'package:admin_web_portal/models/admin/create_admin.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class AdminEvent extends Equatable{ }
@@ -16,7 +17,7 @@ class AdminCreated extends AdminEvent {
 
   AdminCreated(this.admin);
 
-  final Admin admin;
+  final CreateAdmin admin;
 
   @override
   List<Object> get props => [admin];

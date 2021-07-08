@@ -89,7 +89,15 @@ class AdminPage extends StatelessWidget {
                         ),
                       );
                     } else if (state is AdminLoadInProgress) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: Column(
+                        children: [
+                          SizedBox(height: 50,),
+                          CircularProgressIndicator(
+                            color: buttonColor,
+                          ),
+                          SizedBox(height: 50,)
+                        ],
+                      ));
                     } else if (state is AdminLoadFailure) {
                       return Text('Something went wrong');
                     } else {

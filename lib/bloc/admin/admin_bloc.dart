@@ -17,16 +17,16 @@ class AdminBloc extends Bloc<AdminEvent, AdminState>{
       yield* _mapAdminLoadedToState(event);
     } else if(event is AdminCreated) {
       yield* _mapCreateAdminToState(event);
-    } else if(event is AdminRoleChanged) {
+    } /*else if(event is AdminRoleChanged) {
       yield* _mapAdminRoleChanged(event);
-    }
+    }*/
   }
 
   Stream<AdminState> _mapAdminLoadedToState(AdminLoaded event) async* {
     yield AdminLoadInProgress();
     await Future.delayed(Duration(seconds: 1));
     final result = await _adminRepository.getAllAdmin();
-    print(result);
+    //print(result);
     if (result != null) {
       _lastSuccessState = AdminLoadSuccess(result);
       yield _lastSuccessState;
@@ -45,14 +45,14 @@ class AdminBloc extends Bloc<AdminEvent, AdminState>{
       yield _lastSuccessState;
     }
   }
-  Stream<AdminState> _mapAdminRoleChanged(AdminRoleChanged event) async* {
+  /*Stream<AdminState> _mapAdminRoleChanged(AdminRoleChanged event) async* {
     final selectedRole = _lastSuccessState.selectedRole;
     final newRole = selectedRole.role.copyWith(sId: event.roleId);
     final newSelectedRole = selectedRole.copyWith(role: newRole);
     _lastSuccessState =
         _lastSuccessState.copyWith(selectedRole: newSelectedRole);
     yield _lastSuccessState;
-  }
+  }*/
 
 
 }

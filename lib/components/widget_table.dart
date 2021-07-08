@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 typedef Function RowClickHandler(int rowIndex);
 
 class WidgetTableWidget extends StatelessWidget {
-  const WidgetTableWidget({
+  WidgetTableWidget({
     Key key,
+    this.rowCheckBox = true,
     this.columns,
     this.tableData,
     this.rowClickHandler,
@@ -14,6 +15,7 @@ class WidgetTableWidget extends StatelessWidget {
   final List<String> columns;
   final List<List<Widget>> tableData;
   final RowClickHandler rowClickHandler;
+  bool rowCheckBox;
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +26,38 @@ class WidgetTableWidget extends StatelessWidget {
   }
 
   List<DataRow> buildTableRows(List<List<Widget>> rows) {
-    return rows
-        .asMap()
-        .entries
-        .map((
-        e,
-        ) =>
-        DataRow(
-          onSelectChanged: (value) {
-            rowClickHandler(e.key);
-          },
-          cells: e.value
-              .map((i) => DataCell(
-            i
+    if(rowCheckBox) {
+      return rows
+          .asMap()
+          .entries
+          .map((e,) =>
+          DataRow(
+            onSelectChanged: (value) {
+              rowClickHandler(e.key);
+            },
+            cells: e.value
+                .map((i) =>
+                DataCell(
+                    i
+                ))
+                .toList(),
           ))
-              .toList(),
-        ))
-        .toList();
+          .toList();
+    } else {
+      return rows
+          .asMap()
+          .entries
+          .map((e,) =>
+          DataRow(
+            cells: e.value
+                .map((i) =>
+                DataCell(
+                    i
+                ))
+                .toList(),
+          ))
+          .toList();
+    }
   }
 
   List<DataColumn> buildColumns(List<String> columns) {

@@ -1,6 +1,6 @@
-import 'package:admin_web_portal/bloc/Roles/roles_event.dart';
 import 'package:admin_web_portal/bloc/admin/admin_bloc.dart';
 import 'package:admin_web_portal/bloc/admin/admin_event.dart';
+import 'package:admin_web_portal/bloc/roles/roles_event.dart';
 import 'package:admin_web_portal/repository/admin.dart';
 import 'package:admin_web_portal/repository/authentication.dart';
 import 'package:admin_web_portal/repository/roles.dart';
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'bloc/Roles/roles_bloc.dart';
+import 'bloc/roles/roles_bloc.dart';
 import 'bloc/authentication/authentication_bloc.dart';
 import 'bloc/authentication/authentication_event.dart';
 
@@ -127,6 +127,7 @@ class _MyAppState extends State<MyApp> {
               },
             ),
             buttonColor: buttonColor,
+            checkboxTheme: CheckboxThemeData(fillColor: MaterialStateProperty.all(bodyColor)),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(buttonColor),
