@@ -1,5 +1,5 @@
-import 'package:admin_web_portal/bloc/Roles/roles_event.dart';
 import 'package:admin_web_portal/bloc/roles/roles_bloc.dart';
+import 'package:admin_web_portal/bloc/roles/roles_event.dart';
 import 'package:admin_web_portal/bloc/roles/roles_state.dart';
 import 'package:admin_web_portal/repository/roles.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -11,45 +11,52 @@ import '../../mock_models.dart';
 class MockRolesRepository extends Mock implements RolesRepositoryI {}
 
 void main() {
-  group('RolesBloc', () {
+  group('RolesBoc test',(){
     RolesBloc rolesBloc;
     RolesRepositoryI rolesRepository;
 
-    setUp(() {
+    setUp((){
       rolesRepository = MockRolesRepository();
       rolesBloc = RolesBloc(rolesRepository, null);
     });
 
     blocTest(
-      'RolesLoaded - success',
-      build: () {
-        when(rolesRepository.getAllRoles())
-            .thenAnswer((_) => Future.value([rolesMock]));
-
-        return rolesBloc;
-      },
-      act: (bloc) => bloc.add(RolesLoaded()),
-      expect: () =>
-      [
-        RolesLoadInProgress(),
-        RolesLoadSuccess([rolesMock])
-      ],
+        'RolesLoaded - Success',
+        build: () {
+          when(rolesRepository.getAllRoles()).thenAnswer((_) => Future.value([rolesMock]));
+          return rolesBloc;
+        },
+        act: (bloc) => bloc.add(RolesLoaded()),
+        expect: () => [
+          RolesLoadInProgress(),
+          RolesLoadSuccess([rolesMock])
+        ]
     );
 
     blocTest(
-      'RolesLoaded - failure',
-      build: () {
-        when(rolesRepository.getAllRoles())
-            .thenAnswer((_) => Future.value(null));
+        'RolesLoaded - failure',
+        build: () {
+          when(rolesRepository.getAllRoles()).thenAnswer((_) => Future.value(null));
+          return rolesBloc;
+        },
+        act: (bloc) => bloc.add(RolesLoaded()),
+        expect: () => [
+          RolesLoadInProgress(),
+          RolesLoadFailure()
+        ]
+    );
 
+    blocTest('RolesCreated - failure',
+      build: () {
+        when(rolesRepository.createRole(createRoleMock)).thenAnswer((_) => Future.value(false));
         return rolesBloc;
       },
-      act: (bloc) => bloc.add(RolesLoaded()),
-      expect: () =>
-      [
+      act: (bloc) => bloc.add(RoleCreated(createRoleMock)),
+      expect: () => [
         RolesLoadInProgress(),
-        RolesLoadFailure(),
+        null
       ],
     );
+
   });
 }

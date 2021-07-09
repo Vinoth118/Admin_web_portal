@@ -128,6 +128,7 @@ class DrawerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      key: Key('SideMenuList'),
       contentPadding: EdgeInsets.all(0),
       onTap: press,
       horizontalTitleGap: 0.0,

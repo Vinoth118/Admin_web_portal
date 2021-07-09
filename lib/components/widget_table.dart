@@ -20,6 +20,7 @@ class WidgetTableWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DataTable(
+        columnSpacing: 5,
         columns: buildColumns(columns),
         rows: buildTableRows(tableData),
       );

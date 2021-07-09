@@ -13,7 +13,7 @@ class SideMenuInitial extends SideMenuState {
 class SideMenuLoadSuccess extends SideMenuState {
 
   SideMenuLoadSuccess(this.option);
-  List<SideMenuModal> option;
+  final List<SideMenuModal> option;
 
   @override
   List<Object> get props => [option];

@@ -45,14 +45,6 @@ class AdminBloc extends Bloc<AdminEvent, AdminState>{
       yield _lastSuccessState;
     }
   }
-  /*Stream<AdminState> _mapAdminRoleChanged(AdminRoleChanged event) async* {
-    final selectedRole = _lastSuccessState.selectedRole;
-    final newRole = selectedRole.role.copyWith(sId: event.roleId);
-    final newSelectedRole = selectedRole.copyWith(role: newRole);
-    _lastSuccessState =
-        _lastSuccessState.copyWith(selectedRole: newSelectedRole);
-    yield _lastSuccessState;
-  }*/
 
 
 }

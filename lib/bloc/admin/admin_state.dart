@@ -11,16 +11,11 @@ class AdminInitial extends AdminState {
 }
 
 class AdminLoadSuccess extends AdminState {
-  AdminLoadSuccess(this.admin, {this.selectedRole});
-
-  AdminLoadSuccess copyWith({List<Admin> admin, Admin selectedRole}) =>
-      AdminLoadSuccess(admin ?? this.admin,
-          selectedRole: selectedRole ?? this.selectedRole);
+  AdminLoadSuccess(this.admin);
   final List<Admin> admin;
-  final Admin selectedRole;
 
   @override
-  List<Object> get props => [admin, selectedRole];
+  List<Object> get props => [admin];
 }
 
 class AdminLoadInProgress extends AdminState {

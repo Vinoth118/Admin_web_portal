@@ -99,7 +99,12 @@ class AdminPage extends StatelessWidget {
                         ],
                       ));
                     } else if (state is AdminLoadFailure) {
-                      return Text('Something went wrong');
+                      return Column(
+                          children: [
+                            SizedBox(height: 50,),
+                            Text('Something went wrong'),
+                            SizedBox(height: 50,),
+                          ]);
                     } else {
                       return SizedBox();
                     }
